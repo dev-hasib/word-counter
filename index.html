@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
+        <style>
+            .headerText {
+                max-width: 100%;
+                max-height: 80px;
+                font-weight: bold;
+                margin-top: 52px;
+                font-size: 45px;
+                background-color: black;
+                color: white;
+                text-align: center;
+            }
+
+            .showResult {
+                max-width: 467px;
+                margin-top: 13px;
+                color: white;
+                max-height: 306px;
+                background: #111111;
+                border-radius: 20px;
+                position: absolute;
+                overflow: hidden;
+            }
+
+            .resultGround {
+                margin-top: -108px;
+                position: relative;
+                margin-left: -120px;
+                text-align: center;
+                height: 281px;
+                transform: rotate(329deg);
+                width: 567px;
+                background-color: #1b80d8;
+            }
+
+            .word {
+                position: relative;
+                /* background-color: rgba(216, 16, 16, 0.151); */
+                /* margin: -34px; */
+                margin-top: -173px;
+                width: 463px;
+                height: 307px;
+                padding: 20px;
+
+            }
+
+            .countedTex {
+                height: 400px;
+                overflow-y: scroll;
+                text-align: justify;
+                padding: 20px;
+                font-size: 20px;
+                color: #6d644d;
+            }
+        </style>
+        <title>Word Counter</title>
+    </head>
+
+    <body>
+        <div class="headerText">
+            Word Counter
+        </div>
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col">
+                    <div class="mb-3">
+                        <form id="para_form" class="form-group" action="/">
+                            <div class="m-3">
+                                <textarea name="word_box" class="form-control" id="word_box" cols="30" rows="10"
+                                    placeholder="Count word!"></textarea>
+                                <input type="submit" class="btn btn-primary form-control mt-3" value="Count">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="showResult">
+                        <div class="resultGround" id="result">
+                        </div>
+                        <div class="word">
+                            <h2>Your paragraph is : <span id="word_number">0</span> words!</h2>
+                            <h2>And you have : <span id="space_number">0</span> spaces!</h2>
+                            <h2>Characters is : <span id="characters"></span></h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row m-2">
+                <div class="col countedTex bg-info" id="countedTex">
+
+                </div>
+            </div>
+
+        </div>
+    </body>
+    <script>
+        const para = document.getElementById('word_box')
+        const para_form = document.getElementById('para_form')
+        const space_number = document.getElementById('space_number')
+        const word_number = document.getElementById('word_number')
+        const countedTex = document.getElementById('countedTex')
+        const characters = document.getElementById('characters')
+
+        para_form.addEventListener('submit', (e) => {
+            e.preventDefault()
+            const wholePara = [...para.value]
+            characters.innerText = wholePara.length
+            let s = 1
+            wholePara.reduce((acc, cur) => {
+                if (cur === ' ') {
+                    s++
+                }
+                // console.log(`There is ${s} numbers of words`);
+                space_number.innerText = s - 1
+            })
+
+            const a = `${para.value}`
+            const value = a.split(' ')
+            // console.log(value.length + 1);
+            word_number.innerText = value.length
+            countedTex.innerText = para.value
+            para_form.reset()
+        })
+    </script>
+
+</html>
